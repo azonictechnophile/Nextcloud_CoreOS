@@ -1,4 +1,4 @@
-# Install Nextcloud (Latest) + Database (MariaDB/PostgreSQL/SQLite) + Encryption (Let's Encrypt Certificate/Self-signed) + Extra options on Docker
+# Install Nextcloud Stable with Nginx + Database (MariaDB/PostgreSQL/SQLite) + Encryption (Let's Encrypt Certificate/Self-signed) + Portainer, Office, and Adminer on Fedora Core OS.
 
 This is for a relatively handfree install of Nextcloud with Nginx and other options on Fedora CoreOS only. This script is designed with the installation of Nextcloud on its own VM without other containers. 
 
@@ -12,9 +12,11 @@ To keep Fedora CoreOS (FCOS) as minimal as possible, you will need run the insta
 
 Run the following in your CoreOS installation. 
 
-When installing Fedora Core OS, you will need to use an ignition file. The example I have here is for an install using the VMWare.ova and using vSphere for the installation. With the FCOS OVA [FCOS](https://builds.coreos.fedoraproject.org/prod/streams/stable/builds/31.20200407.3.0/x86_64/fedora-coreos-31.20200407.3.0-vmware.x86_64.ova) you will need to provide the json file in a base64 format. The provide one will setup Fedora CoreOS with a username core, as well as setup the network as dhcp. The installation will require you insert your ssh pub key into the .ign file before you encode it. See the example screenshot. Simply go to base64encode.org upload your file and it will product a text file where you copy that into the output of the base64 convert into the "Inline Ignition config data"
+When installing Fedora Core OS, you will need to use an ignition file. The example I have here is for an install using the VMWare.ova and using vSphere for the installation. With the [FCOS](https://builds.coreos.fedoraproject.org/prod/streams/stable/builds/31.20200407.3.0/x86_64/fedora-coreos-31.20200407.3.0-vmware.x86_64.ova) OVA you will need to provide the json file in a base64 format. The provide one will setup Fedora CoreOS with a username core, as well as setup the network as dhcp. The installation will require you insert your ssh pub key into the .ign file before you encode it. See the example screenshot. Simply go to base64encode.org upload your file and it will product a text file where you copy that into the output of the base64 convert into the "Inline Ignition config data"
 
 Then type "bash64" into the "Ignition config data encoding"
+
+![Example on vSphere](https://github.com/azonictechnophile/Nextcloud_CoreOS/blob/master/vmware%20example.png)
 
 NOTE: The inventory file is set to use the username core and password core for ansible to ssh into the server.
 
