@@ -12,7 +12,9 @@ To keep Fedora CoreOS (FCOS) as minimal as possible, you will need run the insta
 
 Run the following in your CoreOS installation. 
 
-When installing Fedora Core OS, you will need to use an ignition file. The example I have here is for an install using the VMWare.ova and using vSphere for the installation. With the [FCOS](https://builds.coreos.fedoraproject.org/prod/streams/stable/builds/31.20200407.3.0/x86_64/fedora-coreos-31.20200407.3.0-vmware.x86_64.ova) OVA you will need to provide the json file in a base64 format. The provide one will setup Fedora CoreOS with a username core, as well as setup the network as dhcp. The installation will require you insert your ssh pub key into the .ign file before you encode it. See the example screenshot. Simply go to base64encode.org upload your file and it will product a text file where you copy that into the output of the base64 convert into the "Inline Ignition config data"
+When installing Fedora Core OS, you will need to use an ignition file. The example I have here is for an install using the VMWare.ova and using vSphere for the installation. With the [FCOS](https://builds.coreos.fedoraproject.org/prod/streams/stable/builds/31.20200407.3.0/x86_64/fedora-coreos-31.20200407.3.0-vmware.x86_64.ova) OVA you will need to provide the json file in a base64 format. The [provided](https://github.com/azonictechnophile/Nextcloud_CoreOS/blob/master/fcos-config-github.ign) one will setup Fedora CoreOS with a username core and password core, as well as setup the network as dhcp. The installation does require you insert your ssh pub key into the .ign file before you encode it, the ansible script uses ssh keys and not passwords to do the install.
+
+See the example screenshot. Simply go to base64encode.org upload your .ign file and it will produce a text file that you copy that into the output of the base64 convert into the "Inline Ignition config data"
 
 Then type "bash64" into the "Ignition config data encoding"
 
