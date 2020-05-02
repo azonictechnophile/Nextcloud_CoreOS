@@ -1,0 +1,12 @@
+---
+# vars file for docker_container
+
+nextcloud_db_links:
+  pgsql:
+    - 'nextcloud-db:db'
+    - 'redis:redis'
+  mysql:
+    - 'nextcloud-db:db'
+    - 'redis:redis'
+  sqlite:
+    - 'redis:redis'

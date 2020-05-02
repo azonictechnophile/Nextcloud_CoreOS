@@ -1,0 +1,67 @@
+[nextcloud]
+#Remote server address
+192.168.60.98
+
+[nextcloud:vars]
+ansible_user=core
+
+### Preliminary variables ###
+
+# The domain name for your Nextcloud instance. You'll get a Let's Encrypt certificate for this domain.
+nextcloud_server_fqdn       = cloud.example.com
+
+# Your email address (for Let's Encrypt).
+ssl_cert_email              = 
+
+### Nextcloud variables ###
+
+# Choose a directory for your Nextcloud data.
+nextcloud_base_dir          = /opt/nextcloud
+
+# Choose a username and password for your Nextcloud admin user.
+nextcloud_admin             = 'admin'
+nextcloud_passwd            = ''              # If empty the playbook will generate a random password.
+
+# You must choose one database management system.
+# Choose between 'pgsql' (PostgreSQL), 'mysql' (MariaDB) and 'sqlite' (SQLite).
+nextcloud_db_type           = 'mysql'
+
+# Options for Mariadb and PostgreSQL.
+nextcloud_db_host           = 'localhost'
+nextcloud_db_name           = 'nextcloud'
+nextcloud_db_user           = 'nextcloud'
+nextcloud_db_passwd         = ''              # If empty the playbook will generate a random password (stored in {{ nextcloud_base_dir }}/secrets ).
+nextcloud_db_prefix         = 'oc_'
+
+### Optional variables ###
+
+# Setup the Nextcloud mail server.
+nextcloud_configure_mail    = false
+nextcloud_mail_from         = 
+nextcloud_mail_smtpmode     = smtp
+nextcloud_mail_smtpauthtype = LOGIN
+nextcloud_mail_domain       =
+nextcloud_mail_smtpname     =
+nextcloud_mail_smtpsecure   = tls
+nextcloud_mail_smtpauth     = 1
+nextcloud_mail_smtphost     =
+nextcloud_mail_smtpport     = 587
+nextcloud_mail_smtpname     =
+nextcloud_mail_smtppwd      = 
+
+# Choose an online office suite to integrate with your Nextcloud. Your options are (without quotation marks): 'none', 'collabora' and 'onlyoffice'.
+online_office               = none
+# When using Collabora, you're able to install dictionaries alongside with it. Collabora's default is German (de).
+collabora_dictionaries      = 'en'            # Separate ISO 639-1 codes with a space.
+
+# Set to true to install TURN server for Nextcloud Talk.
+talk_install                = false
+
+# Set to true to enable access to your database with Adminer at https://adminer.example.com . The password will be stored in {{ nextcloud_base_dir }}/secrets .
+adminer_enabled             = false
+adminer_server_fqdn         = ''       # If empty playbook will error out if set to true. Example: 'adminer.example.com'
+
+
+# Set to true to install Portainer webgui for Docker at http://nextcloud_server_ip:9000 
+portainer_enabled           = false
+portainer_passwd            = ''       # If empty the playbook will generate a random password.

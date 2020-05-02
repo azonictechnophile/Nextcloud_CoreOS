@@ -1,0 +1,17 @@
+---
+# tasks file to start redis container
+
+- name: "{{ 'Create' if (state is undefined or 'absent' not in state) else 'Terminate' }} redis container"
+  docker_container:
+    name: redis
+    image: redis:{{ docker_redis_image | default('latest') }}
+    restart_policy: unless-stopped
+    command: redis-server --requirepass {{ lookup('password', '{{ nextcloud_credential_store }}/redis_secret chars=ascii_letters,digits length=32') }}
+    networks:
+      - name: backend
+    networks_cli_compatible: true
+    volumes:
+      - 'redis-data-vol:/data:rw'
+    labels:
+      com.centurylinklabs.watchtower.enable:         "true"
+    state: "{{ state | default('started') }}"

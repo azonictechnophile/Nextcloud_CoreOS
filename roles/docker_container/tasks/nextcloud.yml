@@ -1,0 +1,41 @@
+---
+# tasks file to start nextcloud container
+
+- name: check if config.php exists
+  stat:
+    path: '{{ nextcloud_config_dir }}/config.php'
+  register: config_php
+
+- name: copy php.ini to {{ nextcloud_config_dir }}
+  copy:
+    src:  "php.ini"
+    dest: "{{ nextcloud_config_dir }}/php.ini"
+    owner: "33" 
+    group: "33" 
+    mode: 0644
+
+- name: "{{ 'Create' if (state is undefined or 'absent' not in state) else 'Terminate' }} the nextcloud container"
+  docker_container:
+    name:           nextcloud
+    image:          nextcloud:stable-fpm
+    restart_policy: unless-stopped
+    networks:
+      - name: backend
+    networks_cli_compatible: true
+    volumes:
+      - "{{ nextcloud_www_dir }}:/var/www/html"
+      - "{{ nextcloud_config_dir }}:/var/www/html/config"
+      - "{{ nextcloud_data_dir }}:{{ nextcloud_container_data_dir }}"
+      - "{{ nextcloud_config_dir }}/php.ini:/usr/local/etc/php/php.ini"
+    labels:
+      traefik.enable: "false"
+      com.centurylinklabs.watchtower.enable: "true"
+    state: "{{ state | default('started') }}"
+  register: docker_result
+    
+- name: wait for nextcloud container to come up
+  wait_for:
+    path: "{{ nextcloud_www_dir }}/lib/versioncheck.php"
+  when: 
+    - docker_result is changed
+    - ( state is undefined or 'absent' not in state )

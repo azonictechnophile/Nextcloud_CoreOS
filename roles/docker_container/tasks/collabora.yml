@@ -1,0 +1,19 @@
+---
+# tasks file to start collabora container
+
+- name: "{{ 'Create' if (state is undefined or 'absent' not in state) else 'Terminate' }} the collabora container"
+  docker_container:
+    name:           'collabora_online'
+    image:          'collabora/code:{{ docker_collabora_image | default("latest") }}'
+    restart_policy: 'unless-stopped'
+    tty:            'yes'
+    networks:
+     - name:        'backend'
+    networks_cli_compatible: true
+    env:
+        domain:     "{{ nextcloud_server_fqdn | regex_replace('\\.', '\\.') }}"
+        dictionaries: "{{ collabora_dictionaries }}"
+    capabilities:   'MKNOD'
+    labels:
+        com.centurylinklabs.watchtower.enable:            "true"
+    state:          '{{ state | default("started") }}'

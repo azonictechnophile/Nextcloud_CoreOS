@@ -1,0 +1,29 @@
+---
+# NOTE: This *adds* rules.
+# It does not delete existing rules.
+
+# Strategy:
+# Use "dmz" zone and add http/https/ssh.
+# Make dmz the default policy.
+
+- name: Enable firewalld
+  service: name=firewalld state=started enabled=yes
+
+- name: Set dmz as default policy
+  command: firewall-cmd --set-default-zone=dmz
+
+- name: Allow http/https/ssh
+  command: firewall-cmd --zone=dmz --permanent --add-service=http --add-service=https --add-service=ssh
+
+- name: Allow turnserver port
+  command: firewall-cmd --zone=dmz --permanent --add-port=5349/tcp
+  when:
+    - talk_install|bool
+
+- name: Allow portainer port
+  command: firewall-cmd --zone=dmz --permanent --add-port=9000/tcp
+  when:
+    - portainer_enabled|bool
+
+- name: Restart firewalld
+  service: name=firewalld state=restarted

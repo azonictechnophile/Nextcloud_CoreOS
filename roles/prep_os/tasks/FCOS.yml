@@ -1,0 +1,11 @@
+---
+# Fedora CoreOS related tasks
+
+- name: Set SELinux to permissive permanently
+  selinux:
+    policy: targeted
+    state: permissive
+
+- name: Set SELinux to permissive until next reboot
+  command: setenforce 0
+  ignore_errors: true

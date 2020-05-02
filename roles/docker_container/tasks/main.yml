@@ -1,0 +1,53 @@
+---
+# tasks file for docker_container
+# start all needed container
+
+- name: docker network
+  include_tasks: network.yml
+  when: state is undefined or 'absent' not in state
+
+- name: docker watchtower
+  include_tasks: watchtower.yml
+
+- name: docker dockerproxy
+  include_tasks: dockerproxy.yml
+
+- name: docker traefik
+  include_tasks: traefik.yml
+
+- name: docker portainer
+  include_tasks: portainer.yml
+  when: portainer_enabled|bool
+
+- name: docker database
+  include_tasks: database.yml
+  when: nextcloud_db_type != 'sqlite'
+
+- name: docker redis
+  include_tasks: redis.yml
+
+- name: docker adminer
+  include_tasks: adminer.yml
+  when: 
+    - adminer_enabled|bool
+    - nextcloud_db_type != 'sqlite'
+
+- name: docker nextcloud
+  include_tasks: nextcloud.yml
+
+- name: docker nginx
+  include_tasks: nginx.yml
+
+- name: docker onlyoffice
+  include_tasks: onlyoffice.yml
+  when: online_office == 'onlyoffice'
+  
+- name: docker collabora office
+  include_tasks: collabora.yml
+  when: 
+    - online_office == 'collabora'
+
+- name: docker turnserver
+  include_tasks: turnserver.yml
+  when: 
+    - talk_install|bool
