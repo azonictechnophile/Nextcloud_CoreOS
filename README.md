@@ -47,7 +47,7 @@ If you install using the iso instead. You can use the .ign and following the ins
 
 ## Configuration
 
-Now you can configure the whole thing by editing the file `inventory` and some other files. Be sure to put the nextcloud server ip address at the top of the install file.
+Now you can configure the whole thing by editing the file `inventory` and some other files. Be sure to put the nextcloud server ip address at the top of the inventory file.
 
 ### Preliminary variables
 
@@ -141,13 +141,6 @@ You can install [Portainer](https://www.portainer.io/), a webgui for Docker.
 portainer_enabled           = false
 portainer_passwd            = ''              # If empty the playbook will generate a random password.
 ```
-
-If you want to, you can get access to your [Traefik](https://traefik.io/) dashboard.
-```ini
-# Uncomment 'traefik_api_user' to get access to your Traefik dashboard at https://nextcloud_server_fqdn/traefik .
-# traefik_api_user          = traefik
-```
-
 ## Installation
 
 Run the Ansible playbook on your server with ansible install. Ensure that you have passlib, bcrypt, and selinux pip3 packages installed.
@@ -160,7 +153,7 @@ Your Nextcloud access credentials will be displayed at the end of the run.
 ```json
 ok: [localhost] => {
     "msg": [
-        "Your Nextcloud at https://nextcloud.example.tld is ready.",
+        "Your Nextcloud at https://cloud.example.com is ready.",
         "Login with user: admin and password: fTkLgvPYdmjfalP8XgMsEg7plnoPsTvp ",
         "Other secrets you'll find in the directory /opt/nextcloud/secrets "
     ]
@@ -168,7 +161,7 @@ ok: [localhost] => {
 ....
 ok: [localhost] => {
     "msg": [
-        "Manage your container at https://nextcloud.example.tld/portainer/ .",
+        "Manage your container at https://nextcloud_server_ip:9000/ .",
         "Login with user: admin and password: CqDy4SqAXC5kEU0hHGQ5IucdBegwaVXa "
     ]
 }
