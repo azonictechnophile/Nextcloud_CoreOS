@@ -39,7 +39,7 @@ Clone this repo on your ansible installation server and change into the director
 ```bash
 git clone https://github.com/azonictechnophile/Nextcloud_CoreOS
 
-cd Nextcloud_CoreOS
+cd Nextcloud_CoreOS/
 ```
 
 Note that root must have also sudo right otherwise the script will complain. Some hoster use distros where root is not in the sudoers file. In this case you have to add `root ALL=(ALL) NOPASSWD:ALL` to /etc/sudoers.
