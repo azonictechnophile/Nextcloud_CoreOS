@@ -22,4 +22,5 @@
     volumes:
       - "{{ portainer_data_dir }}:/data"
       - "/var/run/docker.sock:/var/run/docker.sock"
+    privileged: true
     state: "{{ state | default('started') }}"

@@ -6,11 +6,11 @@
   include_tasks: network.yml
   when: state is undefined or 'absent' not in state
 
+- name: docker dockerproxy
+  include_tasks: dockerproxy.yml  
+
 - name: docker watchtower
   include_tasks: watchtower.yml
-
-- name: docker dockerproxy
-  include_tasks: dockerproxy.yml
 
 - name: docker traefik
   include_tasks: traefik.yml

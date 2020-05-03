@@ -26,8 +26,8 @@
       - name: backend
     networks_cli_compatible: true
     volumes:
-      - "{{ nextcloud_nginx_dir }}/nginx.conf:/etc/nginx/nginx.conf"
-      - "{{ nextcloud_nginx_dir }}/uploadsize.conf:/etc/nginx/conf.d/uploadsize.conf"
+      - "{{ nextcloud_nginx_dir }}/nginx.conf:/etc/nginx/nginx.conf:Z"
+      - "{{ nextcloud_nginx_dir }}/uploadsize.conf:/etc/nginx/conf.d/uploadsize.conf:Z"
     volumes_from:
       - nextcloud
     labels:

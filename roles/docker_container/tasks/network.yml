@@ -10,4 +10,3 @@
   docker_network:
     name: backend
     state: "{{ state | default('present') }}"
-

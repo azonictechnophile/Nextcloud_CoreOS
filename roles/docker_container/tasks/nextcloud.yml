@@ -23,10 +23,10 @@
       - name: backend
     networks_cli_compatible: true
     volumes:
-      - "{{ nextcloud_www_dir }}:/var/www/html"
-      - "{{ nextcloud_config_dir }}:/var/www/html/config"
-      - "{{ nextcloud_data_dir }}:{{ nextcloud_container_data_dir }}"
-      - "{{ nextcloud_config_dir }}/php.ini:/usr/local/etc/php/php.ini"
+      - "{{ nextcloud_www_dir }}:/var/www/html:z"
+      - "{{ nextcloud_config_dir }}:/var/www/html/config:z"
+      - "{{ nextcloud_data_dir }}:{{ nextcloud_container_data_dir }}:Z"
+      - "{{ nextcloud_config_dir }}/php.ini:/usr/local/etc/php/php.ini:z"
     labels:
       traefik.enable: "false"
       com.centurylinklabs.watchtower.enable: "true"

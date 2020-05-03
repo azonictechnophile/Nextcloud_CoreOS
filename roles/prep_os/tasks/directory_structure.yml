@@ -42,20 +42,8 @@
     group: "{{ ansible_env.SUDO_USER | default('root') }}"
     state: directory
 
-#- name: selinux targets
-#  sefcontext:
-#    target: "{{ item }}"
-#    setype: container_var_lib_t
-#    state: present
-#  loop: 
-#    - '{{ nextcloud_base_dir }}(/.*)?'
-#  when: 
-#    - ansible_os_family == 'RedHat'
-#    - ansible_selinux.status == 'enabled'
-    
-#- name: restorecon 
-#  command: restorecon -Rv '{{ nextcloud_base_dir }}'
-#  when: 
-#    - ansible_os_family == 'RedHat'
-#    - ansible_selinux.status == 'enabled'
-    
+- name: Change label on Nextcloud Directorys for SELinux
+  command: chcon -R -t container_file_t '{{ nextcloud_base_dir }}'
+
+- name: Setsebool on rsync for SELinux
+  command: setsebool -P rsync_full_access on

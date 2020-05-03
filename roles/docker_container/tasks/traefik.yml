@@ -36,8 +36,8 @@
       - "80:80"
       - "443:443"
     volumes:
-      - "{{ traefik_config_dir }}/traefik.toml:/traefik.toml"
-      - "{{ traefik_config_dir }}/acme.json:/acme.json"
+      - "{{ traefik_config_dir }}/traefik.toml:/traefik.toml:Z"
+      - "{{ traefik_config_dir }}/acme.json:/acme.json:Z"
     labels:
       com.centurylinklabs.watchtower.enable: "true"
     state: "{{ state | default('started') }}"
