@@ -31,7 +31,7 @@ For editing network location, after installation is complete and you can log in.
 
 On the FCOS install run the following:
 ```bash
-curl -s https://raw.githubusercontent.com/azonictechnophile/Nextcloud_CoreOS/prepare_system.sh | /bin/bash
+curl -s https://raw.githubusercontent.com/azonictechnophile/Nextcloud_CoreOS/master/prepare_system.sh | /bin/bash
 ```
 
 Clone this repo on your ansible installation server and change into the directory Nextcloud_CoreOS.
