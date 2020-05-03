@@ -1,4 +1,4 @@
-# Install Nextcloud Stable with Nginx + Database (MariaDB/PostgreSQL/SQLite) + Encryption (Let's Encrypt Certificate/Self-signed) + Portainer, Office, and Adminer on Fedora Core OS.
+# Install Nextcloud Stable with Nginx + Database (MariaDB/PostgreSQL/SQLite) + Encryption (Let's Encrypt Certificate/Self-signed) + Portainer, Office, and Adminer on Fedora Core OS with SELinux Enforcing.
 
 This is for a relatively handfree install of Nextcloud with Nginx and other options on Fedora CoreOS only. This script is designed with the installation of Nextcloud on its own VM without other containers. 
 
