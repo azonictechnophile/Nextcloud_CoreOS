@@ -2,7 +2,7 @@
 
 This is for a relatively handfree install of Nextcloud with Nginx and other options on Fedora CoreOS only. This script is designed with the installation of Nextcloud on its own VM without other containers. 
 
-It was design with security in mind. Currently, the only package with access to docker.sock is Portainer and Dockerproxy. Traefik uses the dockerproxy on a seperate network in order to access the docker.sock for more security. Portainer does not use Traefik for https access, it is directly thru port 9000. Firewalld is installed and can be made more secure with stricter rules.
+It was design with security in mind. Currently, the only package with access to docker.sock is Portainer, Watchtower, and Dockerproxy. Traefik uses the dockerproxy on a seperate network in order to access the docker.sock for more security. Portainer does not use Traefik for https access, it is directly thru port 9000. Firewalld is installed and can be made more secure with stricter rules.
 
 Only ports open are 22, 80, 443, and 9000 (if portainer is installed) for TCP traffic only.
 
