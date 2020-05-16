@@ -1,0 +1,25 @@
+## Static Configuration
+
+entryPoints:
+  web:
+    address: ':80'
+  web-secure:
+    address: ':443'
+providers:
+  docker:
+    exposedByDefault: false
+    endpoint: 'tcp://dockerproxy:2375'
+    network: 'dockerproxy'
+  file:
+    watch: true
+    filename: 'dynamic.yaml'
+log:
+  level: error
+{% if lets_encrypted_enabled is true %}
+certificatesResolver:
+  Default:
+    acme:
+      email: "{{ ssl_cert_email }}"
+      storage: 'acme.json'
+      tlsChallenge: {}
+{% endif %}

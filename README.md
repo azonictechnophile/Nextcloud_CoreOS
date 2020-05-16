@@ -20,18 +20,13 @@ Then type "bash64" into the "Ignition config data encoding"
 
 ![Example on vSphere](https://github.com/azonictechnophile/Nextcloud_CoreOS/blob/master/vmware%20example.png)
 
-NOTE: The inventory file is set to use the username core and password core for ansible to ssh into the server.
+NOTE: The inventory file is set to use the username core and to ssh into the server with a key.
 
 Once completed you should be able to log into the server.
 
 For editing network location, after installation is complete and you can log in. Go to:
 ```bash
 /etc/NetworkManager/system-connections/eth0.nmconnection
-```
-
-On the FCOS install run the following:
-```bash
-curl -s https://raw.githubusercontent.com/azonictechnophile/Nextcloud_CoreOS/master/prepare_system.sh | /bin/bash
 ```
 
 Clone this repo on your ansible installation server and change into the directory Nextcloud_CoreOS.
@@ -146,10 +141,17 @@ portainer_enabled           = false
 portainer_passwd            = ''              # If empty the playbook will generate a random password.
 ```
 ## Installation
-
 Run the Ansible playbook on your server with ansible install. Ensure that you have passlib, bcrypt, and selinux pip3 packages installed.
+
+First we need to get FCOS ready for ansible. The following will install python3, firewalld, and open-vm-tools for ESXi.
+
 ```bash
-./nextdocker.yml
+ansible-playbook ./bootstrap.yml
+```
+
+Next run the Ansible playbook on your server with ansible install. Ensure that you have passlib, bcrypt, and selinux pip3 packages installed.
+```bash
+ansible-playbook ./nextdocker.yml
 ```
 
 Your Nextcloud access credentials will be displayed at the end of the run.
@@ -178,6 +180,11 @@ If you are in a hurry you can set the inventory variables on the cli. But rememb
 ./nextdocker.yml -e "nextcloud_server_fqdn=nextcloud.example.tld nextcloud_db_type=mysql"
 ```
 
+To reinstall containers run the following command. This will replace any containers that were removed, as long as no docker volumes were removed.
+```bash
+ansible-playbook ./nextdocker.yml --start-at-task="docker_container : docker network"
+```
+
 ## Expert setup
 
 If you change anything in the below mentioned files the playbook might not work anymore. You need a basic understanding of Linux, Ansible, Jinja2 and yaml to do so.
@@ -204,7 +211,7 @@ Also run the scripts/remove_all_docker_stuff.sh, but this will remove all contai
 scripts/remove_all_docker_stuff.sh
 ```
 
-Your data won't be deleted. You have to do this manually by executing the following.
+Your data won't be deleted. To delete your data, you have to manually execute the following.
 ```bash
 rm -rf {{ nextcloud_base_dir }}
 ```

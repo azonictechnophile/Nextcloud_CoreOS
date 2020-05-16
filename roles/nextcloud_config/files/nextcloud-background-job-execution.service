@@ -1,0 +1,11 @@
+[Unit]
+Description=Nextcloud Background Job Execution
+After=docker.service
+
+[Service]
+Type=oneshot
+ExecStart=/usr/bin/bash -c 'docker exec --user www-data nextcloud php -f cron.php'
+StandardOutput=null
+
+[Install]
+WantedBy=multi-user.target

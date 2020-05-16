@@ -14,6 +14,14 @@
     group: "33" 
     mode: 0644
 
+- name: copy www.conf to {{ nextcloud_config_dir }}
+  copy:
+    src: "www.conf"
+    dest: "{{ nextcloud_config_dir }}/www.conf"
+    owner: root
+    group: root
+    mode: 0644
+
 - name: "{{ 'Create' if (state is undefined or 'absent' not in state) else 'Terminate' }} the nextcloud container"
   docker_container:
     name:           nextcloud
@@ -27,6 +35,7 @@
       - "{{ nextcloud_config_dir }}:/var/www/html/config:z"
       - "{{ nextcloud_data_dir }}:{{ nextcloud_container_data_dir }}:Z"
       - "{{ nextcloud_config_dir }}/php.ini:/usr/local/etc/php/php.ini:z"
+      - "{{ nextcloud_config_dir }}/www.conf:/usr/local/etc/php-fpm.d/www.conf:z"
     labels:
       traefik.enable: "false"
       com.centurylinklabs.watchtower.enable: "true"

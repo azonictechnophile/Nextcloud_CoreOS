@@ -1,0 +1,18 @@
+#!/usr/bin/env ansible-playbook
+
+- name: Initial Setup for Nextcloud
+  hosts: nextcloud
+  gather_facts: false
+
+  pre_tasks:
+    - name: Install Python, VMTools, and Firewalld
+      raw: 'sudo rpm-ostree install python3-pip firewalld open-vm-tools'
+
+    - name: Reboot host
+      raw: 'sudo systemctl reboot'
+
+  post_tasks:
+    - name: Ready to install Nextcloud with ansible-playbook
+      debug:
+        msg:
+          - "type ansible-playbook ./nextdocker.yml to start install"

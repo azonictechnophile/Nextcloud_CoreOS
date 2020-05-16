@@ -59,24 +59,50 @@
       docker exec --user www-data nextcloud php occ files:scan --all
       docker exec --user www-data nextcloud php occ files:scan-app-data
       exit 0
-      
-- name: optimize nextcloud cronjob
-  cron:
-    name: nextcloud optimize
-    minute: '15'
-    hour:   '01'
-    user: root
-    job: "/usr/local/bin/nextcloud_optimize.sh > /dev/null 2>&1"
 
-- name: nextcloud cronjob
-  cron:
-    name: nextcloud cronjob
-    minute: '*/15'
-    user: root
-    job: "docker exec --user www-data nextcloud php -f cron.php > /dev/null 2>&1"
+- name: nextcloud-optimize - copy service file
+  copy:
+    src: nextcloud-optimize.service
+    dest: '/etc/systemd/system/nextcloud-optimize.service'
+    owner: root
+    group: root
+    mode: 0644
 
-- name: run nextcloud cronjob once
-  shell: 'docker exec --user www-data nextcloud php -f cron.php > /dev/null 2>&1'
+- name: nextcloud-optimize - copy timer file
+  copy:
+    src: nextcloud-optimize.timer
+    dest: '/etc/systemd/system/nextcloud-optimize.timer'
+    owner: root
+    group: root
+    mode: 0644   
+    
+- name: enable service nextcloud-optimize-timer
+  command: "{{ item }}"
+  with_items:
+  -  'sudo systemctl enable nextcloud-optimize.timer'
+  -  'sudo systemctl start nextcloud-optimize.timer'      
+
+- name: nextcloud-background-job-execution - copy service file
+  copy:
+    src: nextcloud-background-job-execution.service
+    dest: '/etc/systemd/system/nextcloud-background-job-execution.service'
+    owner: root
+    group: root
+    mode: 0644
+
+- name: nextcloud-background-job-execution - copy timer file
+  copy:
+    src: nextcloud-background-job-execution.timer
+    dest: '/etc/systemd/system/nextcloud-background-job-execution.timer'
+    owner: root
+    group: root
+    mode: 0644
+
+- name: enable service nextcloud-background-job-execution-timer
+  command: "{{ item }}"
+  with_items:
+  -  'sudo systemctl enable nextcloud-background-job-execution.timer'
+  -  'sudo systemctl start nextcloud-background-job-execution.timer'
 
 - name: setup collabora app in nextcloud
   include_tasks: configure_collabora.yml

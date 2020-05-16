@@ -28,8 +28,8 @@
     volumes:
       - "{{ nextcloud_nginx_dir }}/nginx.conf:/etc/nginx/nginx.conf:Z"
       - "{{ nextcloud_nginx_dir }}/uploadsize.conf:/etc/nginx/conf.d/uploadsize.conf:Z"
-    volumes_from:
-      - nextcloud
+      - "{{ nextcloud_www_dir }}:/var/www/html:z"
+      - "{{ nextcloud_config_dir }}:/var/www/html/config:z"
     labels:
       traefik.enable: "true"
       traefik.http.middlewares.nginx-https.redirectscheme.scheme: "https"

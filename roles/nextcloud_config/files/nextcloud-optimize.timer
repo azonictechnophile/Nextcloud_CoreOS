@@ -1,0 +1,9 @@
+[Unit]
+Description=Run Nextcloud Optimize Script Daily @ 01:15
+
+[Timer]
+OnCalendar=*-*-* 1:15:00
+Persistent=true 
+
+[Install]
+WantedBy=timers.target

@@ -1,0 +1,11 @@
+[Unit]
+Description=Run Nextcloud Optimize
+After=docker.service
+
+[Service]
+Type=oneshot
+ExecStart=/usr/local/bin/nextcloud_optimize.sh
+StandardOutput=null
+
+[Install]
+WantedBy=multi-user.target

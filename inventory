@@ -1,6 +1,6 @@
 [nextcloud]
 #Remote server address
-192.168.60.98
+192.168.1.1
 
 [nextcloud:vars]
 ansible_user=core
@@ -10,8 +10,10 @@ ansible_user=core
 # The domain name for your Nextcloud instance. You'll get a Let's Encrypt certificate for this domain.
 nextcloud_server_fqdn       = cloud.example.com
 
-# Your email address (for Let's Encrypt).
-ssl_cert_email              = 
+# To use Let's Encrypt Certs change to true and use your email address. If DNS provider is used, put provider in acme_provider
+lets_encrypted_enabled      = false
+ssl_cert_email              = yourname@email.com
+acme_provider               = 
 
 ### Nextcloud variables ###
 
@@ -59,9 +61,9 @@ talk_install                = false
 
 # Set to true to enable access to your database with Adminer at https://adminer.example.com . The password will be stored in {{ nextcloud_base_dir }}/secrets .
 adminer_enabled             = false
-adminer_server_fqdn         = ''       # If empty playbook will error out if set to true. Example: 'adminer.example.com'
-
 
 # Set to true to install Portainer webgui for Docker at http://nextcloud_server_ip:9000 
 portainer_enabled           = false
 portainer_passwd            = ''       # If empty the playbook will generate a random password.
+
+
