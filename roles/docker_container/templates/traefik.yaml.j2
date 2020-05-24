@@ -16,8 +16,8 @@ providers:
 log:
   level: error
 {% if lets_encrypted_enabled is true %}
-certificatesResolver:
-  Default:
+certificatesResolvers:
+  default:
     acme:
       email: "{{ ssl_cert_email }}"
       storage: 'acme.json'
